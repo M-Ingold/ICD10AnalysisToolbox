@@ -1,0 +1,20 @@
+Package: ICD10AnalysisToolbox
+Title: ICD10AnalysisToolbox: Convert Tabular ICD-10 Data into Incidence and Prevalence and Run Follow-Up Analysis
+Version: 0.0.0.1
+Authors@R: 
+    person("Markus", "Ingold", , "markus.ingold@unimedizin-mainz.de", role = c("aut", "cre"))
+Description: A package to group provided ICD-10 data into incidence (time to event) and prevalence according to Phecode or CCSR convention. Using the included analysis and plotting function, the capacity of a variable to distinguish prevalence and incidence of illnesses across organ systems.
+License: `use_mit_license()`
+Imports: 
+	dplyr,
+	PheWAS
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 3.5)
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
