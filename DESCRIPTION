@@ -18,3 +18,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/M-Ingold/ICD10AnalysisToolbox
+BugReports: https://github.com/M-Ingold/ICD10AnalysisToolbox/issues
