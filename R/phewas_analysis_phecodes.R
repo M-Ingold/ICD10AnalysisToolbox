@@ -20,7 +20,7 @@ phewas_analysis_phecodes <- function(cohort_df = ghs_eps, outcome_df = phecode_o
                                           "pregnancy complications", "symptoms", "other"),
                    save_as="phecode", n_event_cutoff =10, target = target.scaled, exclude_history = TRUE,
                    add_events = NULL, add_events_name = NULL, add_events_category = NULL,
-                   return_tables = FALSE, annotation_size = 5, skip_colors = NULL){
+                   return_tables = FALSE, annotation_size = 5, skip_colors = NULL, plot_pdf=FALSE){
 
   source("N:/Transfer/ing1m/biosignature_pipeline/fast_glm2.R")
 
@@ -136,22 +136,26 @@ phewas_analysis_phecodes <- function(cohort_df = ghs_eps, outcome_df = phecode_o
   )
   dev.off()
 
-  pdf(paste0(save_as, "_outcomes.pdf"), width = 15, height = 7.5)
-  print(
-    PheWAS::phenotypeManhattan(input, annotate.phenotype.description = T, use.color = T,
-                               annotate.level = sort(input$p)[15], # annotate top 15
-                               #annotate.level = max(input$p[input$p_adj<0.05]), # annotate all FDR significant
-                               significant.line= 0.05/length(input$p), # needs to be specified, otherwise it takes the suggestive line p-value/number of tests
-                               suggestive.line = ifelse(max(input$p[input$p_adj<0.05]) < 0.05/length(input$p),
-                                                        0.05/length(input$p)-0.1, max(input$p[input$p_adj<0.05])), # blue line at largest FDR-significant p-value or just below Bonferroni line
-                               color.palette = colorBlindBlack8, sort.by.category.value=T,
-                               OR.direction = T, size.x.labels=14, size.y.labels=14,
-                               max.y = ifelse(-log10(min(input$p, na.rm = T)) > 5, -log10(min(input$p, na.rm = T))+0.1, 5),
-                               annotate.size=annotation_size)+
-      ggplot2::theme(plot.margin = ggplot2::margin(0.5,1.5,0.1,0.1, "cm")
-      )
-  )
-  dev.off()
+  if (plot_pdf) {
+    pdf(paste0(save_as, "_outcomes.pdf"), width = 15, height = 7.5)
+    print(
+      PheWAS::phenotypeManhattan(input, annotate.phenotype.description = T, use.color = T,
+                                 annotate.level = sort(input$p)[15], # annotate top 15
+                                 #annotate.level = max(input$p[input$p_adj<0.05]), # annotate all FDR significant
+                                 significant.line= 0.05/length(input$p), # needs to be specified, otherwise it takes the suggestive line p-value/number of tests
+                                 suggestive.line = ifelse(max(input$p[input$p_adj<0.05]) < 0.05/length(input$p),
+                                                          0.05/length(input$p)-0.1, max(input$p[input$p_adj<0.05])), # blue line at largest FDR-significant p-value or just below Bonferroni line
+                                 color.palette = colorBlindBlack8, sort.by.category.value=T,
+                                 OR.direction = T, size.x.labels=14, size.y.labels=14,
+                                 max.y = ifelse(-log10(min(input$p, na.rm = T)) > 5, -log10(min(input$p, na.rm = T))+0.1, 5),
+                                 annotate.size=annotation_size)+
+        ggplot2::theme(plot.margin = ggplot2::margin(0.5,1.5,0.1,0.1, "cm")
+        )
+    )
+    dev.off()
+
+  }
+
 
   }
 
