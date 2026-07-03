@@ -39,9 +39,6 @@ phewas_analysis_CCSR <- function(#CCSR_codes = CCSR_codes,
   cohort_eps_CCSR_codes <- merge(cohort_df, outcome_df, by = "ID")
 
 
-  # grab and adjust phecodes file to match variable names
-  DXCCSR <- read.csv("N:/Transfer/ing1m/PheCode_CCSR_Outcomes_GHS_MyoVasc/DXCCSR_v2025-1.csv")
-
   # get ICD10 format to match our data
   DXCCSR[] <- lapply(DXCCSR, function(x) gsub("'", "", x))
   DXCCSR$ICD10_reformat <- sub("(.{3})", "\\1.", DXCCSR$X.ICD.10.CM.CODE.)
@@ -180,22 +177,22 @@ phewas_analysis_CCSR <- function(#CCSR_codes = CCSR_codes,
   dev.off()
 
 
-  pdf(paste0(save_as, "_outcomes.pdf"), width = 15, height = 7.5)
-  print(
-    PheWAS::phenotypeManhattan(input, annotate.phenotype.description = T, use.color = T,
-                               annotate.level = sort(input$p)[15], # annotate top 15
-                               #annotate.level = max(input$p[input$p_adj<0.05]), # annotate all FDR significant
-                               significant.line= 0.05/length(input$p), # needs to be specified, otherwise it takes the suggestive line p-value/number of tests
-                               suggestive.line = ifelse(max(input$p[input$p_adj<0.05]) < 0.05/length(input$p),
-                                                        0.05/length(input$p)-0.1, max(input$p[input$p_adj<0.05])), # blue line at largest FDR-significant p-value or just below Bonferroni line
-                               color.palette = colorBlindBlack8, sort.by.category.value=T,
-                               OR.direction = T, size.x.labels=14, size.y.labels=14,
-                               max.y = ifelse(-log10(min(input$p, na.rm = T)) > 5, -log10(min(input$p, na.rm = T))+0.1, 5),
-                               annotate.size=annotation_size)+
-      ggplot2::theme(plot.margin = ggplot2::margin(0.5,1.5,0.1,0.1, "cm")
-      )
-  )
-  dev.off()
+  # pdf(paste0(save_as, "_outcomes.pdf"), width = 15, height = 7.5)
+  # print(
+  #   PheWAS::phenotypeManhattan(input, annotate.phenotype.description = T, use.color = T,
+  #                              annotate.level = sort(input$p)[15], # annotate top 15
+  #                              #annotate.level = max(input$p[input$p_adj<0.05]), # annotate all FDR significant
+  #                              significant.line= 0.05/length(input$p), # needs to be specified, otherwise it takes the suggestive line p-value/number of tests
+  #                              suggestive.line = ifelse(max(input$p[input$p_adj<0.05]) < 0.05/length(input$p),
+  #                                                       0.05/length(input$p)-0.1, max(input$p[input$p_adj<0.05])), # blue line at largest FDR-significant p-value or just below Bonferroni line
+  #                              color.palette = colorBlindBlack8, sort.by.category.value=T,
+  #                              OR.direction = T, size.x.labels=14, size.y.labels=14,
+  #                              max.y = ifelse(-log10(min(input$p, na.rm = T)) > 5, -log10(min(input$p, na.rm = T))+0.1, 5),
+  #                              annotate.size=annotation_size)+
+  #     ggplot2::theme(plot.margin = ggplot2::margin(0.5,1.5,0.1,0.1, "cm")
+  #     )
+  # )
+  # dev.off()
 
   }
 

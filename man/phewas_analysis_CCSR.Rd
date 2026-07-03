@@ -15,6 +15,7 @@ phewas_analysis_CCSR(
   exclude_categories = c("Congenital malformations", "Injury and poisoning consequences",
     "Health status factors", "Pregnancy and childbirth", "Perinatal conditions",
     "Unacceptable principal diagnosis"),
+  one_to_one_mapping = TRUE,
   exclude_history = TRUE,
   return_tables = TRUE,
   annotation_size = 5,

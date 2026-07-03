@@ -20,7 +20,8 @@ phewas_analysis_phecodes(
   add_events_category = NULL,
   return_tables = FALSE,
   annotation_size = 5,
-  skip_colors = NULL
+  skip_colors = NULL,
+  plot_pdf = FALSE
 )
 }
 \arguments{

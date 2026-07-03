@@ -10,7 +10,8 @@ create_tte_icd(
   tbl_mortality_contact,
   icd_codes = c("I21"),
   variable_name = NULL,
-  censor_time = 5
+  censor_time = 5,
+  no_FU_as_NA = FALSE
 )
 }
 \arguments{

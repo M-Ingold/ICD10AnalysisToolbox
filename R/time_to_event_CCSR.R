@@ -19,8 +19,6 @@ time_to_event_CCSR <- function(dataframe_ID_BL,
 
   ### create a loop going through all Phecodes, grabbing all outcomes with associated ICD10 codes
 
-  DXCCSR <- read.csv("N:/Transfer/ing1m/PheCode_CCSR_Outcomes_GHS_MyoVasc/DXCCSR_v2025-1.csv")
-
   # get ICD10 format to match our data
   DXCCSR[] <- lapply(DXCCSR, function(x) gsub("'", "", x))
   DXCCSR$ICD10_reformat <- sub("(.{3})", "\\1.", DXCCSR$X.ICD.10.CM.CODE.)

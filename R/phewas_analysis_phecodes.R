@@ -22,8 +22,6 @@ phewas_analysis_phecodes <- function(cohort_df = ghs_eps, outcome_df = phecode_o
                    add_events = NULL, add_events_name = NULL, add_events_category = NULL,
                    return_tables = FALSE, annotation_size = 5, skip_colors = NULL, plot_pdf=FALSE){
 
-  source("N:/Transfer/ing1m/biosignature_pipeline/fast_glm2.R")
-
   cohort_df$target.scaled <- scale(cohort_df[[target]])[, ]
   cohort_df <- cohort_df[!is.na(cohort_df$target.scaled),]
 
@@ -41,10 +39,6 @@ phewas_analysis_phecodes <- function(cohort_df = ghs_eps, outcome_df = phecode_o
 
   cohort_eps_phecodes <- merge(cohort_df, outcome_df, by = "ID")
 
-
-  phecodes <- read.csv("N:/Transfer/ing1m/pipeline_data/Phecode_map_v1_2_icd9_icd10cm_09_30_2024.csv")
-
-  phecodes <- phecodes[phecodes$Flag==10,]
   phecodes$Phecode_char <- paste0("phecode_", gsub("\\.", "_", as.character(phecodes$Phecode)))
 
   # Add uncategorized traits to other. This includes e.g. "Other ill-defined and unknown causes of morbidity and mortality",

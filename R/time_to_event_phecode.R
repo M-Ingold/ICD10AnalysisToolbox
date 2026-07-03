@@ -15,10 +15,6 @@ time_to_event_phecode <- function(dataframe_ID_BL,
          save_table = FALSE) {
 ### create a loop going through all Phecodes, grabbing all outcomes with associated ICD10 codes
 
-phecodes <- read.csv("N:/Transfer/ing1m/PheCode_CCSR_Outcomes_GHS_MyoVasc/Phecode_map_v1_2_icd9_icd10cm_09_30_2024.csv")
-
-phecodes <- phecodes[phecodes$Flag==10,]
-
 phecodes$Phecode_char <- gsub("\\.", "_", as.character(phecodes$Phecode))
 phecodes_list <- unique(phecodes$Phecode_char)
 

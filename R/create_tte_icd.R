@@ -14,7 +14,8 @@ create_tte_icd <- function(dataframe_ID_BL,
                            tbl_mortality_contact,
                             icd_codes = c('I21'),
                             variable_name = NULL,
-                            censor_time = 5) {
+                            censor_time = 5,
+                           no_FU_as_NA = FALSE) {
 
   ### Define new variable name
   if(is.null(variable_name)) variable_name <- tolower(paste0(icd_codes, collapse = '_'))
@@ -61,6 +62,13 @@ create_tte_icd <- function(dataframe_ID_BL,
     tte$event[tte$time >= censor_time] <- 0
     tte$time[tte$time >= censor_time] <- censor_time
   }
+
+  # set individuals lacking follow-up to NA
+  if (no_FU_as_NA) {
+    tte$event[tte$time == 0] <- NA
+    tte$time[tte$time == 0] <- NA
+  }
+
 
 
   tte[,paste0(variable_name, '_event')] <- tte$event

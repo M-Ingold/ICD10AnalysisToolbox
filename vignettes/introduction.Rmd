@@ -15,8 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#library(ICD10AnalysisToolbox)
-devtools::load_all()
+library(ICD10AnalysisToolbox)
+#devtools::load_all()
 ```
 
 The code below generates example input and showcases the workflow.
