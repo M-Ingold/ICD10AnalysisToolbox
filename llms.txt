@@ -1,0 +1,88 @@
+# ICD10AnalysisToolbox
+
+ICD10AnalysisToolbox was written to streamline the analysis of tabular
+ICD-10 data in long format:
+
+- [`create_tte_icd()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/create_tte_icd.md)
+  adds history and event (yes/no), as well as time to event or contact
+  loss for each ID for a set of ICD-10 codes of choice.
+- [`time_to_event_phecode()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/time_to_event_phecode.md)
+  automatically runs
+  [`create_tte_icd()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/create_tte_icd.md)
+  for all Phecodes mapping to ICD10 codes
+- [`phewas_analysis_phecodes()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/phewas_analysis_phecodes.md)
+  runs Cox proportional hazard models for all available Phecode outcomes
+  and visualises them as a PheWAS plot, like so:
+
+![PheWAS
+plot](articles/test_outcomes.png?raw=true "Simulated associations with hypertension")
+
+PheWAS plot
+
+## Installation
+
+You can install the development version of ICD10AnalysisToolbox from
+[GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("pak")
+pak::pak("M-Ingold/ICD10AnalysisToolbox")
+```
+
+## Example
+
+Add on outcome consisting of multiple ICD-10 codes to an existing
+dataframe, e.g. subtypes of Myocardial infarction:
+
+``` r
+
+cohort_table <- create_tte_icd(cohort_table, icd_table_long, tbl_mortality_contact_loss,
+                               icd_codes = c("I21.0", "I21.1", "I21.2", "I21.3"), variable_name = "STEMI")
+cohort_table <- create_tte_icd(cohort_table, icd_table_long, tbl_mortality_contact_loss,
+                               icd_codes = c("I21.4"), variable_name = "NSTEMI")
+```
+
+## Available ICD-10 mappings
+
+- \[Phecode map v1.2\]
+  (<https://phewascatalog.org/phewas/_w_7b1256e92bb84559bf1c493fd51cf540/data/Phecode_map_v1_2_icd9_icd10cm.csv.zip>)
+- \[Clinical Classifications Software Refined (CCSR,Fiscal Year 2025
+  version)\] (<https://hcup-us.ahrq.gov/toolssoftware/ccsr/dxccsr.jsp>)
+
+# Package index
+
+## All functions
+
+- [`DXCCSR`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/DXCCSR.md)
+  : ICD-10-CM to Clinical Classifications Software Refined (CCSR)
+  mapping
+- [`create_tte_icd()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/create_tte_icd.md)
+  : Convert temporal ICD-10 codes into usable information for Cox
+  regression
+- [`fast_glm2()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/fast_glm2.md)
+  : Run many regression models quickly, for many response variables.
+- [`phecodes`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/phecodes.md)
+  : ICD-10-CM to PheCode mapping
+- [`phewas_analysis_CCSR()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/phewas_analysis_CCSR.md)
+  : Determine the association of a variable of interest by running Cox
+  regression on time to event information and logistic regression on
+  prevalence at baseline. Generates PheWAS plots to assess the strenth
+  of associations
+- [`phewas_analysis_phecodes()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/phewas_analysis_phecodes.md)
+  : Determine the association of a variable of interest by running Cox
+  regression on time to event information and logistic regression on
+  prevalence at baseline. Generates PheWAS plots to assess the strenth
+  of associations
+- [`time_to_event_CCSR()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/time_to_event_CCSR.md)
+  : Map temporal ICD-10 codes into outcomes for Cox regression using the
+  CCSR convention
+- [`time_to_event_phecode()`](https://m-ingold.github.io/ICD10AnalysisToolbox/reference/time_to_event_phecode.md)
+  : Map temporal ICD-10 codes into outcomes for Cox regression using the
+  phecode convention
+
+# Articles
+
+### All vignettes
+
+- [introduction](https://m-ingold.github.io/ICD10AnalysisToolbox/articles/introduction.md):
