@@ -7,6 +7,7 @@ Description: A package to group provided ICD-10 data into incidence (time to eve
 License: `use_mit_license()`
 Imports: 
 	dplyr,
+	sandwich,
 	PheWAS
 Remotes: PheWAS/PheWAS
 Encoding: UTF-8
