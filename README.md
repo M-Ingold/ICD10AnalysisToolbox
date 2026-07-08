@@ -1,0 +1,50 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# ICD10AnalysisToolbox
+
+ICD10AnalysisToolbox was written to streamline the analysis of tabular
+ICD-10 data in long format:
+
+- `create_tte_icd()` adds history and event (yes/no), as well as time to
+  event or contact loss for each ID for a set of ICD-10 codes of choice.
+- `time_to_event_phecode()` automatically runs `create_tte_icd()` for
+  all Phecodes mapping to ICD10 codes
+- `phewas_analysis_phecodes()` runs Cox proportional hazard models for
+  all available Phecode outcomes and visualises them as a PheWAS plot,
+  like so:
+
+<figure>
+<img src="vignettes/test_outcomes.png?raw=true"
+title="Simulated associations with hypertension" alt="PheWAS plot" />
+<figcaption aria-hidden="true">PheWAS plot</figcaption>
+</figure>
+
+## Installation
+
+You can install the development version of ICD10AnalysisToolbox from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("M-Ingold/ICD10AnalysisToolbox")
+```
+
+## Example
+
+Add on outcome consisting of multiple ICD-10 codes to an existing
+dataframe, e.g. subtypes of Myocardial infarction:
+
+``` r
+cohort_table <- create_tte_icd(cohort_table, icd_table_long, tbl_mortality_contact_loss,
+                               icd_codes = c("I21.0", "I21.1", "I21.2", "I21.3"), variable_name = "STEMI")
+cohort_table <- create_tte_icd(cohort_table, icd_table_long, tbl_mortality_contact_loss,
+                               icd_codes = c("I21.4"), variable_name = "NSTEMI")
+```
+
+## Available ICD-10 mappings
+
+- \[Phecode map v1.2\]
+  (<https://phewascatalog.org/phewas/_w_7b1256e92bb84559bf1c493fd51cf540/data/Phecode_map_v1_2_icd9_icd10cm.csv.zip>)
+- \[Clinical Classifications Software Refined (CCSR,Fiscal Year 2025
+  version)\] (<https://hcup-us.ahrq.gov/toolssoftware/ccsr/dxccsr.jsp>)
